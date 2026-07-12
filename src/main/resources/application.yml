@@ -1,7 +1,5 @@
 server:
   port: ${PORT:8080}
-  servlet:
-    context-path: /api
 app:
   checkin:
     host: ''
@@ -24,7 +22,6 @@ spring:
     default-property-inclusion: ALWAYS
     time-zone: GMT+8
     date-format: yyyy-MM-dd HH:mm:ss
-  servlet:
     multipart:
       max-file-size: 500MB
       max-request-size: 500MB
