@@ -23,7 +23,7 @@ import com.project.demo.service.ActivityNotificationService;
 import com.project.demo.service.EnrollmentInformationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.redis.core.RedisTemplate;
+import com.project.demo.util.InMemoryTokenStore;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -58,7 +58,7 @@ public class ActivityCheckinController extends BaseController<ActivityCheckin, A
     private ActivityNotificationService activityNotificationService;
 
     @Autowired
-    private RedisTemplate redisTemplate;
+    private InMemoryTokenStore tokenStore;
 
     @Value("${app.checkin.host:}")
     private String checkinHost;
@@ -268,7 +268,7 @@ public class ActivityCheckinController extends BaseController<ActivityCheckin, A
         if (token == null || "".equals(token)) {
             return 0;
         }
-        AccessToken byToken = (AccessToken) redisTemplate.opsForValue().get(token);
+        AccessToken byToken = (AccessToken) tokenStore.get(token);
         if (byToken == null) {
             return 0;
         }

@@ -13,7 +13,7 @@ import com.project.demo.util.RsaUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import org.springframework.data.redis.core.RedisTemplate;
+import com.project.demo.util.InMemoryTokenStore;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -42,7 +42,7 @@ public class UserController extends BaseController<User, UserService> {
     private UserGroupService userGroupService;
 
     @Autowired
-    private RedisTemplate redisTemplate;
+    private InMemoryTokenStore tokenStore;
 
     /**
      * 注册
@@ -196,7 +196,7 @@ public class UserController extends BaseController<User, UserService> {
                 accessToken.setUser_id(byUsername.getUserId());
 
                 Duration duration = Duration.ofSeconds(7200L);
-                redisTemplate.opsForValue().set(accessToken.getToken(), accessToken,duration);
+                tokenStore.set(accessToken.getToken(), accessToken, duration);
 
                 // 返回用户信息
                 JSONObject user = JSONObject.parseObject(JSONObject.toJSONString(byUsername));
@@ -283,7 +283,7 @@ public class UserController extends BaseController<User, UserService> {
     public Map<String, Object> quit(HttpServletRequest request) {
         String token = request.getHeader("x-auth-token");
         try{
-            redisTemplate.delete(token);
+            tokenStore.delete(token);
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -301,7 +301,7 @@ public class UserController extends BaseController<User, UserService> {
         if(token == null || "".equals(token)){
             return 0;
         }
-        AccessToken byToken = (AccessToken) redisTemplate.opsForValue().get(token);
+        AccessToken byToken = (AccessToken) tokenStore.get(token);
         if(byToken == null){
             return 0;
         }
