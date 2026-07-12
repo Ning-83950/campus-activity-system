@@ -10,7 +10,7 @@ app:
 spring:
   datasource:
     initialization-mode: always
-    url: jdbc:h2:mem:campus;MODE=MySQL;DATABASE_TO_LOWER=TRUE;DB_CLOSE_DELAY=-1;NON_KEYWORDS=ALL
+    url: jdbc:h2:mem:campus;MODE=MySQL;DATABASE_TO_LOWER=TRUE;DB_CLOSE_DELAY=-1
     username: sa
     password: ''
     driver-class-name: org.h2.Driver
