@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>校园活动报名系统 - Demo</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; margin: 0; padding: 40px 20px; background: #f5f7fa; color: #333; }
+        .container { max-width: 720px; margin: 0 auto; background: #fff; padding: 40px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+        h1 { color: #1a1a1a; margin-top: 0; }
+        .tag { display: inline-block; background: #e8f5e9; color: #2e7d32; padding: 4px 12px; border-radius: 16px; font-size: 14px; margin-bottom: 20px; }
+        .info { background: #f8f9fa; padding: 16px; border-radius: 8px; margin: 20px 0; }
+        .info p { margin: 8px 0; }
+        code { background: #eee; padding: 2px 6px; border-radius: 4px; font-family: Menlo, Monaco, Consolas, monospace; }
+        a { color: #1976d2; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        .endpoints { margin-top: 24px; }
+        .endpoint { padding: 12px; border-bottom: 1px solid #eee; }
+        .method { display: inline-block; background: #1976d2; color: #fff; padding: 2px 8px; border-radius: 4px; font-size: 12px; margin-right: 8px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <span class="tag">后端 API 已运行</span>
+        <h1>校园活动报名系统</h1>
+        <p>这是一个基于 Spring Boot + MyBatis-Plus + H2 的校园活动报名后端服务 Demo。</p>
+        
+        <div class="info">
+            <p><strong>技术栈：</strong>Spring Boot 2.2.5 / MyBatis-Plus / H2 / JPA / Druid</p>
+            <p><strong>部署平台：</strong>Railway</p>
+            <p><strong>源码：</strong><a href="https://github.com/Ning-83950/campus-activity-system" target="_blank">GitHub</a></p>
+            <p><strong>测试账号：</strong><code>admin</code> / <code>123456</code></p>
+            <p><strong>说明：</strong>登录接口需要 RSA 加密，浏览器直接访问以下状态接口会返回"用户未登录"，这是预期行为。</p>
+        </div>
+
+        <div class="endpoints">
+            <h2>可用接口示例</h2>
+            <div class="endpoint">
+                <span class="method">GET</span>
+                <a href="/api/user/state" target="_blank">/api/user/state</a> — 当前登录状态
+            </div>
+            <div class="endpoint">
+                <span class="method">POST</span>
+                <code>/api/user/login</code> — 登录（需 RSA 加密密码）
+            </div>
+        </div>
+    </div>
+</body>
+</html>
