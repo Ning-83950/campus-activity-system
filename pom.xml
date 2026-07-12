@@ -152,11 +152,7 @@
                 <configuration>
                     <source>8</source>
                     <target>8</target>
-                    <compilerArgs>
-                        <arg>--add-opens</arg>
-                        <arg>jdk.compiler/com.sun.tools.javac.processing=ALL-UNNAMED</arg>
-                    </compilerArgs>
-                </configuration>
+                    </configuration>
             </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
