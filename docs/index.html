@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>校园活动报名系统 - Campus Activity System</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --primary:#6C5CE7;
+  --primary-dark:#5A4BD1;
+  --accent:#00CEC9;
+  --bg:#0F0F23;
+  --bg-card:#1A1A3E;
+  --text:#E8E8F0;
+  --text-secondary:#A0A0C0;
+  --gradient:linear-gradient(135deg,#6C5CE7 0%,#00CEC9 100%);
+}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden}
+.container{max-width:1200px;margin:0 auto;padding:0 24px}
+
+/* Hero */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:120px 24px 80px;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(108,92,231,0.15) 0%,transparent 60%)}
+.hero-badge{display:inline-block;padding:8px 20px;border-radius:50px;background:rgba(108,92,231,0.15);border:1px solid rgba(108,92,231,0.3);color:var(--primary);font-size:14px;font-weight:600;margin-bottom:32px;backdrop-filter:blur(10px)}
+.hero h1{font-size:clamp(36px,6vw,64px);font-weight:800;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:24px;line-height:1.2}
+.hero p{font-size:clamp(16px,2vw,20px);color:var(--text-secondary);max-width:700px;margin:0 auto 40px}
+.hero-links{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.btn{padding:14px 32px;border-radius:12px;font-size:16px;font-weight:600;text-decoration:none;transition:all .3s;cursor:pointer;border:none;display:inline-flex;align-items:center;gap:8px}
+.btn-primary{background:var(--gradient);color:#fff;box-shadow:0 8px 32px rgba(108,92,231,0.35)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(108,92,231,0.5)}
+.btn-outline{border:2px solid rgba(108,92,231,0.4);color:var(--text);background:transparent}
+.btn-outline:hover{border-color:var(--primary);background:rgba(108,92,231,0.08)}
+
+/* Stats */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px;max-width:900px;margin:0 auto 80px}
+.stat-card{background:var(--bg-card);border-radius:20px;padding:32px 24px;text-align:center;border:1px solid rgba(108,92,231,0.15);transition:all .3s}
+.stat-card:hover{border-color:rgba(108,92,231,0.4);transform:translateY(-4px)}
+.stat-num{font-size:48px;font-weight:800;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1}
+.stat-label{color:var(--text-secondary);margin-top:12px;font-size:15px}
+
+/* Section */
+.section{padding:100px 0}
+.section-label{text-align:center;color:var(--primary);font-weight:600;font-size:14px;text-transform:uppercase;letter-spacing:2px;margin-bottom:16px}
+.section-title{text-align:center;font-size:clamp(28px,4vw,42px);font-weight:800;margin-bottom:20px}
+.section-subtitle{text-align:center;color:var(--text-secondary);max-width:600px;margin:0 auto 60px;font-size:16px}
+
+/* Feature Cards */
+.features{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px}
+.feature-card{background:var(--bg-card);border-radius:20px;padding:36px 28px;border:1px solid rgba(108,92,231,0.1);transition:all .3s;position:relative;overflow:hidden}
+.feature-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--gradient);opacity:0;transition:opacity .3s}
+.feature-card:hover::before{opacity:1}
+.feature-card:hover{transform:translateY(-4px);border-color:rgba(108,92,231,0.3)}
+.feature-icon{font-size:36px;margin-bottom:20px;display:block}
+.feature-card h3{font-size:20px;font-weight:700;margin-bottom:12px}
+.feature-card p{color:var(--text-secondary);font-size:14px;line-height:1.7}
+
+/* Tech Stack */
+.tech-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
+.tech-category{background:var(--bg-card);border-radius:20px;padding:32px;border:1px solid rgba(108,92,231,0.15)}
+.tech-category h3{font-size:18px;font-weight:700;margin-bottom:20px;display:flex;align-items:center;gap:10px}
+.tech-tags{display:flex;flex-wrap:wrap;gap:10px}
+.tech-tag{padding:6px 16px;border-radius:50px;background:rgba(108,92,231,0.1);color:var(--primary);font-size:13px;font-weight:500;border:1px solid rgba(108,92,231,0.2)}
+
+/* Architecture */
+.arch-section{background:var(--bg-card);border-radius:24px;padding:48px;border:1px solid rgba(108,92,231,0.15);text-align:center}
+.arch-flow{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:20px;margin:30px 0}
+.arch-node{background:linear-gradient(135deg,rgba(108,92,231,0.2) 0%,rgba(108,92,231,0.05) 100%);border:1px solid rgba(108,92,231,0.3);border-radius:16px;padding:20px 28px;font-weight:600;font-size:15px;transition:all .3s}
+.arch-node:hover{border-color:var(--primary);transform:scale(1.05);background:rgba(108,92,231,0.15)}
+.arch-arrow{color:var(--accent);font-size:24px;font-weight:700}
+
+/* Footer */
+.footer{text-align:center;padding:60px 24px;border-top:1px solid rgba(108,92,231,0.1);color:var(--text-secondary);font-size:14px}
+.footer a{color:var(--primary);text-decoration:none}
+.footer a:hover{text-decoration:underline}
+
+/* Feature highlight */
+.highlight-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+.highlight-item{background:var(--bg-card);border-radius:16px;padding:28px;border:1px solid rgba(108,92,231,0.1);display:flex;align-items:flex-start;gap:16px;transition:all .3s}
+.highlight-item:hover{border-color:rgba(108,92,231,0.3)}
+.highlight-num{font-size:32px;font-weight:800;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;flex-shrink:0;min-width:40px}
+.highlight-item h4{font-size:17px;font-weight:700;margin-bottom:6px}
+.highlight-item p{color:var(--text-secondary);font-size:14px}
+
+@media(max-width:768px){
+  .hero h1{font-size:32px}
+  .arch-flow{flex-direction:column;gap:12px}
+  .arch-arrow{transform:rotate(90deg)}
+  .section{padding:60px 0}
+}
+</style>
+</head>
+<body>
+
+<!-- Hero -->
+<section class="hero">
+  <div>
+    <div class="hero-badge">🎯 全栈项目</div>
+    <h1>校园活动报名系统</h1>
+    <p>功能完整的校园活动管理平台 — 活动发布、在线报名、二维码签到、PDF 证书、热度排行一站式解决</p>
+    <div class="hero-links">
+      <a href="https://github.com/Ning-83950/campus-activity-system" class="btn btn-primary" target="_blank">📂 查看源码</a>
+      <a href="https://campus-activity-system-production.up.railway.app" class="btn btn-outline" target="_blank">🌐 在线体验</a>
+    </div>
+  </div>
+</section>
+
+<!-- Stats -->
+<div class="container">
+  <div class="stats">
+    <div class="stat-card">
+      <div class="stat-num">26</div>
+      <div class="stat-label">控制器模块</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">13</div>
+      <div class="stat-label">数据库表</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">3</div>
+      <div class="stat-label">用户角色</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">12+</div>
+      <div class="stat-label">技术组件</div>
+    </div>
+  </div>
+</div>
+
+<!-- Core Features -->
+<div class="container">
+  <section class="section">
+    <div class="section-label">Core Features</div>
+    <h2 class="section-title">核心功能</h2>
+    <p class="section-subtitle">从活动发布到签到闭环，覆盖校园活动管理的全流程</p>
+    <div class="features">
+      <div class="feature-card">
+        <span class="feature-icon">📋</span>
+        <h3>活动管理</h3>
+        <p>教师发布/编辑/删除活动，支持封面图上传、分类管理、审核流程，完整活动生命周期管理</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">📝</span>
+        <h3>在线报名</h3>
+        <p>学生浏览活动并在线报名/退报，系统自动校验人数上限与截止时间，支持报名审核机制</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">📱</span>
+        <h3>二维码签到</h3>
+        <p>每个活动自动生成专属签到二维码，学生手机扫码即可签到，支持手动签到补录</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">📄</span>
+        <h3>PDF 证书</h3>
+        <p>签到成功后自动生成 PDF 参与证明，包含活动名称、时间、地点等完整信息，支持一键下载</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🔥</span>
+        <h3>热度排行</h3>
+        <p>多维度热度算法：浏览×1 + 点赞×3 + 收藏×5 + 评论×2 + 报名×4 + 签到×6，实时 TOP N 排行</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">📬</span>
+        <h3>通知系统</h3>
+        <p>活动发布/审核/报名/签到等关键节点自动推送站内信 + 邮件通知，支持群发消息给已报名学生</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- Feature Highlights -->
+<div class="container">
+  <section class="section" style="padding-top:0">
+    <h2 class="section-title">功能亮点</h2>
+    <p class="section-subtitle">不止于 CRUD，这些设计让系统更实用</p>
+    <div class="highlight-grid">
+      <div class="highlight-item">
+        <span class="highlight-num">01</span>
+        <div><h4>双 ORM 架构</h4><p>MyBatis Plus 处理复杂查询 + Spring Data JPA 处理简单 CRUD，灵活高效</p></div>
+      </div>
+      <div class="highlight-item">
+        <span class="highlight-num">02</span>
+        <div><h4>Redis Token 管理</h4><p>基于 Redis 的 Token 会话管理，支持登出失效、过期自动清理</p></div>
+      </div>
+      <div class="highlight-item">
+        <span class="highlight-num">03</span>
+        <div><h4>WebSocket 实时推送</h4><p>报名状态变更、新通知等通过 WebSocket 实时推送到前端</p></div>
+      </div>
+      <div class="highlight-item">
+        <span class="highlight-num">04</span>
+        <div><h4>前后端分离</h4><p>Vue.js + Element UI 前端独立部署，Spring Boot 纯 API 后端，架构清晰</p></div>
+      </div>
+      <div class="highlight-item">
+        <span class="highlight-num">05</span>
+        <div><h4>数据可视化</h4><p>ECharts 驱动的活动统计图表，直观展示报名趋势与签到率</p></div>
+      </div>
+      <div class="highlight-item">
+        <span class="highlight-num">06</span>
+        <div><h4>Excel 导入导出</h4><p>Apache POI 实现报名名单、签到记录等数据的 Excel 批量导入导出</p></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- Tech Stack -->
+<div class="container">
+  <section class="section" style="padding-top:0">
+    <div class="section-label">Tech Stack</div>
+    <h2 class="section-title">技术栈</h2>
+    <p class="section-subtitle">采用业界主流技术，前后端分离架构</p>
+    <div class="tech-grid">
+      <div class="tech-category">
+        <h3>⚙️ 后端核心</h3>
+        <div class="tech-tags">
+          <span class="tech-tag">Spring Boot 2.2.5</span>
+          <span class="tech-tag">MyBatis Plus 3.0.4</span>
+          <span class="tech-tag">Spring Data JPA</span>
+          <span class="tech-tag">MySQL 8.0</span>
+          <span class="tech-tag">Redis</span>
+          <span class="tech-tag">Druid</span>
+        </div>
+      </div>
+      <div class="tech-category">
+        <h3>🎨 前端</h3>
+        <div class="tech-tags">
+          <span class="tech-tag">Vue.js 2.x</span>
+          <span class="tech-tag">Element UI</span>
+          <span class="tech-tag">ECharts</span>
+          <span class="tech-tag">Axios</span>
+          <span class="tech-tag">Vue Router</span>
+          <span class="tech-tag">Vuex</span>
+        </div>
+      </div>
+      <div class="tech-category">
+        <h3>🔧 辅助技术</h3>
+        <div class="tech-tags">
+          <span class="tech-tag">WebSocket</span>
+          <span class="tech-tag">ZXing（二维码）</span>
+          <span class="tech-tag">OpenPDF</span>
+          <span class="tech-tag">JavaMail</span>
+          <span class="tech-tag">Apache POI</span>
+          <span class="tech-tag">FastJSON</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- Architecture -->
+<div class="container">
+  <section class="section" style="padding-top:0">
+    <h2 class="section-title">系统架构</h2>
+    <p class="section-subtitle">前后端分离 + 分层架构</p>
+    <div class="arch-section">
+      <div class="arch-flow">
+        <div class="arch-node">🖥️ Vue.js<br><small style="color:var(--text-secondary)">管理后台</small></div>
+        <span class="arch-arrow">→</span>
+        <div class="arch-node">🔗 Axios<br><small style="color:var(--text-secondary)">HTTP/REST</small></div>
+        <span class="arch-arrow">→</span>
+        <div class="arch-node">⚙️ Spring Boot<br><small style="color:var(--text-secondary)">业务层</small></div>
+        <span class="arch-arrow">→</span>
+        <div class="arch-node">🗄️ MySQL<br><small style="color:var(--text-secondary)">持久层</small></div>
+      </div>
+      <div style="margin-top:16px;color:var(--text-secondary);font-size:14px">
+        Controller → Service → DAO 三层架构 ｜ Redis 缓存加速 ｜ WebSocket 实时推送
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- Database -->
+<div class="container">
+  <section class="section" style="padding-top:0">
+    <h2 class="section-title">数据库设计</h2>
+    <p class="section-subtitle">13 张核心业务表，涵盖活动全生命周期</p>
+    <div class="features" style="grid-template-columns:repeat(auto-fit,minmax(180px,1fr))">
+      <div class="feature-card" style="padding:24px 20px;text-align:center">
+        <span class="feature-icon">📅</span>
+        <h3 style="font-size:16px">活动表</h3>
+        <p style="font-size:13px">activity_information</p>
+      </div>
+      <div class="feature-card" style="padding:24px 20px;text-align:center">
+        <span class="feature-icon">✅</span>
+        <h3 style="font-size:16px">报名表</h3>
+        <p style="font-size:13px">enrollment_information</p>
+      </div>
+      <div class="feature-card" style="padding:24px 20px;text-align:center">
+        <span class="feature-icon">📱</span>
+        <h3 style="font-size:16px">签到表</h3>
+        <p style="font-size:13px">activity_checkin</p>
+      </div>
+      <div class="feature-card" style="padding:24px 20px;text-align:center">
+        <span class="feature-icon">📢</span>
+        <h3 style="font-size:16px">通知表</h3>
+        <p style="font-size:13px">activity_notification</p>
+      </div>
+      <div class="feature-card" style="padding:24px 20px;text-align:center">
+        <span class="feature-icon">📝</span>
+        <h3 style="font-size:16px">文章表</h3>
+        <p style="font-size:13px">article</p>
+      </div>
+      <div class="feature-card" style="padding:24px 20px;text-align:center">
+        <span class="feature-icon">💬</span>
+        <h3 style="font-size:16px">互动表</h3>
+        <p style="font-size:13px">评论/点赞/收藏</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+  <p>校园活动报名系统 &copy; 2026 ｜ <a href="https://github.com/Ning-83950/campus-activity-system" target="_blank">GitHub</a> ｜ MIT License</p>
+</footer>
+
+</body>
+</html>
